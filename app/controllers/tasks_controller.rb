@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
 
+  include TaskHelper
 	# GET /tasks
 	# GET /tasks.json
 	def index
@@ -16,6 +17,8 @@ class TasksController < ApplicationController
 	# POST /tasks.json
 	def create
 	  @task = Task.new(task_params)
+    #just playing
+    #add_c_suffix(@task)
     if @task.save
       render json: @task, status: :created
     else

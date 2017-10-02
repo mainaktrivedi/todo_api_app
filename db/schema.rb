@@ -10,7 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170926132523) do
+ActiveRecord::Schema.define(version: 20171002061026) do
+
+  create_table "categories", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "tags", force: :cascade do |t|
     t.string "title"
@@ -21,12 +27,22 @@ ActiveRecord::Schema.define(version: 20170926132523) do
   create_table "tags_tasks", id: false, force: :cascade do |t|
     t.integer "tag_id", null: false
     t.integer "task_id", null: false
-    t.index ["tag_id", "task_id"], name: "index_tags_tasks_on_tag_id_and_task_id"
+    t.index ["tag_id", "task_id"], name: "index_tags_tasks_on_tag_id_and_task_id", unique: true
     t.index ["task_id", "tag_id"], name: "index_tags_tasks_on_task_id_and_tag_id"
   end
 
   create_table "tasks", force: :cascade do |t|
     t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "category_id"
+    t.index ["category_id"], name: "index_tasks_on_category_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
